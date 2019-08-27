@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReplayComponent from './replayComponent'
 import PropTypes from 'prop-types'
 
 import styles from './styles.css'
@@ -8,6 +9,8 @@ export default class ExampleComponent extends Component {
     text: PropTypes.string
   }
 
+  ws = new WebSocket('ws://localhost:8080/ws')
+
   render() {
     const {
       text
@@ -15,7 +18,7 @@ export default class ExampleComponent extends Component {
 
     return (
       <div className={styles.test}>
-        Example Component: {text}
+        <ReplayComponent ws={this.ws} />
       </div>
     )
   }
