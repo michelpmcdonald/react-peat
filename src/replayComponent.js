@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 
 export default class ReplayComponent extends Component {
     static propTypes = {
-      ws: PropTypes.instanceOf(WebSocket),
+      ws: PropTypes.instanceOf(WebSocket)
     }
-
 
   replayCommand = commandString => {
     // console.log(commandString)
