@@ -39,24 +39,25 @@ export default class LightChart extends Component {
     })
   }
 
-  componentDidUpdate() {
-    if (this.props.lastTrd.time != null &&
-            this.props.lastTrd.time.getMinutes() !== this.currentBar.tim.getMinutes()) {
+  onTrade(trd) {
+    if (this.firstBar === true ||
+      trd.time.getMinutes() !== this.currentBar.tim.getMinutes()) {
       this.currentBar = {
         open: null,
         high: null,
         low: null,
         close: null,
-        time: this.props.lastTrd.time / 1000,
-        tim: this.props.lastTrd.time
+        time: trd.time / 1000,
+        tim: trd.time
       }
       this.currentVol = {
         time: this.currentBar.time,
         value: 0
       }
+      this.firstBar = false
     }
-    if (this.props.lastTrd.time != null) {
-      this.mergeTickToBar(this.props.lastTrd)
+    if (trd.time != null) {
+      this.mergeTickToBar(trd)
     }
   }
 
@@ -82,12 +83,4 @@ export default class LightChart extends Component {
       <div ref={this.chartRef} />
     )
   }
-}
-
-LightChart.propTypes = {
-  lastTrd: PropTypes.shape({
-    amt: PropTypes.number.isRequired,
-    vol: PropTypes.number.isRequired,
-    time: PropTypes.instanceOf(Date).isRequired
-  })
 }
